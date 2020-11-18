@@ -2,37 +2,55 @@ import { gql } from 'apollo-server'
 import { cypher } from 'neo4j-graphql-js'
 
 export const typeDefs = gql`
-  type Gene {
-    sid: ID! @id
-    Feature_type: String
-    Full_name_from_nomenclature_authority: String
-    GeneID: String
-    LocusTag: String
-    Modification_date: String
-    Nomenclature_status: String
-    Other_designations: String
-    Symbol: String
-    Symbol_from_nomenclature_authority: String
-    Synonyms: String
-    chromosome: String
-    dbXrefs: String
-    description: String
-    map_location: String
-    name: String
-    source: String!
-    tax_id: String
-    taxid: String
-    type_of_gene: String
-    transcripts: [GeneCodes]
-    expressedTissues: [Expressed]
-    pathways: [Member]
-    mapsGenes: [MapsGene]
-    mapsGeneSymbols: [MapsGeneSymbol]
-    mapsGeneSymbolsWithOmitSpecialChar: [MapsGeneSymbolsWithOmitedSpecialChar]
-    mapsGeneSymbolsWithOmitLength: [MapsGeneSymbolsWithOmitLength]
-    mapsGeneSymbolsWithOmitWord: [MapsGeneSymbolsWithOmitWord]
-    diseases: [AssociatesDaG]
-  }
+    """
+    We use gene definitions from public genome databases (ENSEMBL, NCBI Gene). Every :Gene node represents a single
+    unique gene ID in one of the source databases.
+
+    Gene nodes from different databases have different properties. Some of the properties do not exist on all :Gene nodes.
+    """
+    type Gene {
+        """
+        The ID from the source database.
+        """
+        sid: ID! @id
+        Feature_type: String
+        Full_name_from_nomenclature_authority: String
+        GeneID: String
+        LocusTag: String
+        Modification_date: String
+        Nomenclature_status: String
+        Other_designations: String
+        Symbol: String
+        Symbol_from_nomenclature_authority: String
+        Synonyms: String
+        chromosome: String
+        dbXrefs: String
+        description: String
+        map_location: String
+        name: String
+        """
+        The name of the source database.
+        """
+        source: String!
+        """
+        The NCBI Taxonomy ID.
+        """
+        tax_id: String
+        """
+        The NCBI Taxonomy ID.
+        """
+        taxid: String
+        type_of_gene: String
+        transcripts: [GeneCodes]
+        expressedTissues: [Expressed]
+        pathways: [Member]
+        mapsGenes: [MapsGene]
+        mapsGeneSymbols: [MapsGeneSymbol]
+        mapsGeneSymbolsWithOmitSpecialChar: [MapsGeneSymbolsWithOmitedSpecialChar]
+        mapsGeneSymbolsWithOmitLength: [MapsGeneSymbolsWithOmitLength]
+        mapsGeneSymbolsWithOmitWord: [MapsGeneSymbolsWithOmitWord]
+        diseases: [AssociatesDaG]
+    }
 
   type GeneCodes @relation(name: "CODES", from: "gene", to: "transcript") {
     gene: Gene!
