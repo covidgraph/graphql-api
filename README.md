@@ -1,6 +1,6 @@
 [![CI status](https://circleci.com/gh/Covid19-GraphQL/covid-graph-graphql.svg?style=shield)](https://circleci.com/gh/Covid19-GraphQL/covid-graph-graphql)
 
-This project serves to develop and maintain a [Neo4j-GraphQL](https://grandstack.io/docs/neo4j-graphql-js) API for the Neo4j graph database used by the [CovidGraph](https://covidgraph.org/) project. 
+This is a [Neo4j-GraphQL](https://grandstack.io/docs/neo4j-graphql-js) API for the Neo4j graph database used by the [CovidGraph](https://covidgraph.org/) project. 
 
 * [Demo](#demo)
   * [GraphQL Playground](#graphql-playground)
