@@ -38,7 +38,7 @@ export const typeDefs = gql`
     refersToUrl: [Link] @relation(name: "REFERS_TO_URL", direction: OUT)
     
     """
-    The relationship between a ClinicalTrial and a type of Reference. A ClinicalTrial ca use a Reference as either background, result or derived.
+    The relationship between a ClinicalTrial and a type of Reference. A ClinicalTrial can use a Reference as either background, result or derived.
     A "1 to 1" relationship
     """
     useReferenceAs: [ReferenceType] @relation(name: "USE_REFERENCE_AS", direction: OUT)
@@ -50,7 +50,7 @@ export const typeDefs = gql`
     conductedAt: [Facility] @relation(name: "CONDUCTED_AT", direction: OUT)
 
     """
-    A ClinicalTrial has a purpose of invetigating an intervention (e.g. medication, surgery) 
+    A ClinicalTrial has a purpose of invetigating an (e.g. medication, surgery) 
     A "1 to many" relationship in the magitude of 1-30, e.g. one ClinicalTrial can investigate one or more Interventions.
     """  
     investigates: [Intervention] @relation(name: "INVESTIGATES_INTERVENTION", direction: OUT)
@@ -152,195 +152,194 @@ export const typeDefs = gql`
  
     """
     A ClinicalTrial has a start date.
+    This is a 1:1 relationship.
     """
     started: [Start] @relation(name: "STARTED_AT", direction: OUT)
 
     """
-    This is relation field that links to another node. Mention cardinality 
-    (eg one to many), mention what it looks like in the real data: e.g.
-    if its "1 to many", how many is usual? 2? 2000?
+    A ClinicaTrial has an end date.
+    This is a 1:1 relationship.
     """
     completed: [Completed] @relation(name: "COMPLETED_AT", direction: OUT)
 
     """
-    This is relation field that links to another node. Mention cardinality 
-    (eg one to many), mention what it looks like in the real data: e.g.
-    if its "1 to many", how many is usual? 2? 2000?
+    A ClinicalTrial is conducted by an Invetigator.
+    This is a 1:1 relationship.
     """
     conductedBy: [Investigator] @relation(name: "IS_CONDUCTED_BY", direction: OUT)
 
     """
-    This is relation field that links to another node. Mention cardinality 
-    (eg one to many), mention what it looks like in the real data: e.g.
-    if its "1 to many", how many is usual? 2? 2000?
+    A ClinicalTrial has a description.
+    This is a 1:1 relationship.
     """
     description: [Description] @relation(name: "HAS_DESCRIPTION", direction: OUT)
 
     """
-    This is relation field that links to another node. Mention cardinality 
-    (eg one to many), mention what it looks like in the real data: e.g.
-    if its "1 to many", how many is usual? 2? 2000?
+    A ClinicalTrial has a study design.
+    This is a 0:1 relationship. 
     """
     studyDesign: [Design] @relation(name: "HAS_STUDY_DESIGN", direction: OUT)
 
     """
-    This is relation field that links to another node. Mention cardinality 
-    (eg one to many), mention what it looks like in the real data: e.g.
-    if its "1 to many", how many is usual? 2? 2000?
+    For ClinicalTrials of StudyType:Observational a time perspective/observation period can be specified.
+    This is a 1:1 relationship. 
     """
     observationPeriod: [ObservationPeriod] @relation(name: "HAS_OBSERVATION_PERIOD", direction: OUT)
 
     """
-    This is relation field that links to another node. Mention cardinality 
-    (eg one to many), mention what it looks like in the real data: e.g.
-    if its "1 to many", how many is usual? 2? 2000?
+    A ClinicalTrial can have a Primary Outcome
+    This is a 0:1 relationship. 
     """
     primaryOutcome: [Outcome] @relation(name: "HAS_PRIMARY_OUTCOME", direction: OUT)
 
     """
-    This is relation field that links to another node. Mention cardinality 
-    (eg one to many), mention what it looks like in the real data: e.g.
-    if its "1 to many", how many is usual? 2? 2000?
+    A ClinicalTrial can have one or more Secondary Outcomes
+    A 1:many relationship, in the magitude of 1-260, e.g. one ClinicalTrial can have one or more seconday outcome.
     """
     secondaryOutcome: [Outcome] @relation(name: "HAS_SECONDARY_OUTCOME", direction: OUT)
 
     """
-    This is relation field that links to another node. Mention cardinality 
-    (eg one to many), mention what it looks like in the real data: e.g.
-    if its "1 to many", how many is usual? 2? 2000?
+    TA ClinicalTrial can have one or more Other Outcomes
+    A 1:many relationship, in the magitude of 1-60, e.g. one ClinicalTrial can have one or more other outcome.
     """
     otherOutcome: [Outcome] @relation(name: "HAS_OTHER_OUTCOME", direction: OUT)
 
     """
-    This is relation field that links to another node. Mention cardinality 
-    (eg one to many), mention what it looks like in the real data: e.g.
-    if its "1 to many", how many is usual? 2? 2000?
+    A ClinicalTrial is investigating intervention on a study population.
+    A 1:1 relationship.
     """
     studyPopulation: [StudyPopulation] @relation(name: "HAS_STUDY_POPULATION", direction: OUT)
 
     """
-    This is relation field that links to another node. Mention cardinality 
-    (eg one to many), mention what it looks like in the real data: e.g.
-    if its "1 to many", how many is usual? 2? 2000?
+    A ClinicalTrial can have one or more Inclusion Criteia. The study participant must adhere to the criteria to be included in the study.
+    A limited list of criteria for selection of participants in the clinical study, provided in terms of inclusion criteria and suitable for assisting potential participants in identifying clinical studies of interest.
+    A 1:many relationship, in the magitude of 1-60, e.g. one ClinicalTrial can have one or more inclusion criteria.
     """
     inclusionCriteria: [InclusionCriteria] @relation(name: "HAS_INCLUSION_CRITERIA", direction: OUT)
 
     """
-    This is relation field that links to another node. Mention cardinality 
-    (eg one to many), mention what it looks like in the real data: e.g.
-    if its "1 to many", how many is usual? 2? 2000?
+    A ClinicalTrial can have one or more Exclusion Criteia. if the study participant meet the criteria the subject is excluded in the study.
+    A limited list of criteria for selection of participants in the clinical study, provided in terms of exclusion criteria and suitable for assisting potential participants in identifying clinical studies of interest.
+    A 1:many relationship, in the magitude of 1-80, e.g. one ClinicalTrial can have one or more exclusion criteria.
     """
     exclusionCriteria: [ExclusionCriteria] @relation(name: "HAS_EXCLUSION_CRITERIA", direction: OUT)
 
     """
-    This is relation field that links to another node. Mention cardinality 
-    (eg one to many), mention what it looks like in the real data: e.g.
-    if its "1 to many", how many is usual? 2? 2000?
+    The ClinicalTrial must have a contact person.
+    A 1:many relationship, in the magitude of 1-5, e.g. one ClinicalTrial can have one or more central contact psersons.
     """
     contactPerson: [Contact] @relation(name: "HAS_CONTACT_PERSON", direction: OUT)
 
     """
-    This is relation field that links to another node. Mention cardinality 
-    (eg one to many), mention what it looks like in the real data: e.g.
-    if its "1 to many", how many is usual? 2? 2000?
+    A Clinical Trial of StudyType Observation or Expanded Access can have samples retained in a bio-repository.
+    A 1:1 relationship.
     """
-    retainedBioSamples: [BioSpecimen] @relation(name: "HAS_SMAPLES_RETAINED_IN_BIOREPOSITORY", direction: OUT) #//! typo
-
+    retainedBioSamples: [BioSpecimen] @relation(name: "HAS_SAMPLES_RETAINED_IN_BIOREPOSITORY", direction: OUT) #//! typo
+    
     """
-    This is relation field that links to another node. Mention cardinality 
-    (eg one to many), mention what it looks like in the real data: e.g.
-    if its "1 to many", how many is usual? 2? 2000?
+    The ClinicalTrial can be desgned to compare arms of treatment.
+    A 1:many relationship, in the magitude of 1-30, e.g. one ClinicalTrial can have one or more study arms.
     """
     studyArms: [Arm] @relation(name: "HAS_STUDY_ARMS", direction: OUT)
   }
 
   type Link {
-"Single line description"
+"A web site directly relevant to the protocol may be entered, if desired. "
     """
-    What is this property? Maybe an example of it.
-    e.g.: ABC123
+    Complete URL, including http:// or https://
+    Limit: 3999 characters.
     """
     url: String! @id
 
     """
-    This is relation field that links to another node. Mention cardinality 
-    (eg one to many), mention what it looks like in the real data: e.g.
-    if its "1 to many", how many is usual? 2? 2000?
+    A Link refers to a ClinicalTrial
+    If exists, then a 1 to 1 relationship between the Link and the clinical trial.
     """
     trials: [ClinicalTrial] @relation(name: "REFERS_TO_URL", direction: IN)
   }
 
   type ReferenceType {
-"Single line description"
+"Type of reference/citation used in a clinical trial"
 
     """
-    What is this property? Maybe an example of it.
-    e.g.: ABC123
+    A ClinicalTrial can use a Reference/citation as either (name): background, result or derived.
     """
     name: String! @id
     
     """
-    This is relation field that links to another node. Mention cardinality 
-    (eg one to many), mention what it looks like in the real data: e.g.
-    if its "1 to many", how many is usual? 2? 2000?
+    The relationship between a Citation and a type of Reference.
+    A 1:many relationship, in the magitude of 1-3, e.g. one Citation can be of more than one type, since a citation can be referred to from many trials.
     """
     citations: [Citation] @relation(name: "IS_REFERENCE_TYPE", direction: IN)
 
     """
-    This is relation field that links to another node. Mention cardinality 
-    (eg one to many), mention what it looks like in the real data: e.g.
-    if its "1 to many", how many is usual? 2? 2000?
+    A ClinicalTrial can have citations of one or more reference types.
+    A 1:many relationship, in the magitude of 1-3, e.g. one ClinicalTrial can have one or more Reference Types.
     """
     trials: [ClinicalTrial] @relation(name: "USE_REFERENCE_AS", direction: IN)
   }
 
   type Facility {
-"Single line description"
+"Information about facility in a clinical study"
     """
-    What is this property? Maybe an example of it.
-    e.g.: ABC123
+    Full name of the organization where the clinical study is being conducted.
+    Limit: 254 characters.
     """
     name: String! @id
 
     """
-    This is relation field that links to another node. Mention cardinality 
-    (eg one to many), mention what it looks like in the real data: e.g.
-    if its "1 to many", how many is usual? 2? 2000?
+    A Facility can conduct one or more ClinicalTrial. 
+    A "1 to many" relationship in the magitude of 1-30, e.g. one facility can conduct one or more ClinicalTrials.
     """
     trials: [ClinicalTrial] @relation(name: "CONDUCTED_AT", direction: IN)
 
     """
-    This is relation field that links to another node. Mention cardinality 
-    (eg one to many), mention what it looks like in the real data: e.g.
-    if its "1 to many", how many is usual? 2? 2000?
+    A facility is located in a city.
+    A 1:1 relationship
     """
     city: City @relation(name: "LOCATED_IN", direction: OUT)
   }
 
   type Intervention {
-"Single line description"
+"The intervention(s) associated with each arm or group"
     """
-    What is this property? Maybe an example of it.
-    e.g.: ABC123
+    At least one intervention must be specified for interventional studies. 
+    For observational studies, specify the intervention(s)/exposure(s) of interest, if any. 
+    If the same intervention is associated with more than one arm or group, provide the information once and use the Arm or Group/Intervention Cross-Reference to associate it with more than one arm or group.
+
+    A brief descriptive name used to refer to the intervention(s) studied in each arm of the clinical study. A non-proprietary name of the intervention must be used, if available. If a non-proprietary name is not available, a brief descriptive name or identifier must be used.
+    Limit: 200 characters.
     """
     name: String! @id
 
     """
-    What is this property? Maybe an example of it.
-    e.g.: ABC123
+    Details that can be made public about the intervention, other than the Intervention Name(s), sufficient to distinguish the intervention from other, similar interventions studied in the same or another clinical study. 
+    For example, interventions involving drugs may include dosage form, dosage, frequency, and duration.
+    Limit: 1000 characters.
+
     """
     description: String!
 
     """
-    What is this property? Maybe an example of it.
-    e.g.: ABC123
+    For each intervention studied in the clinical study, the general type of intervention. 
+    One of the below can be selected:
+      Drug: Including placebo
+      Device: Including sham
+      Biological/Vaccine
+      Procedure/Surgery
+      Radiation
+      Behavioral: For example, psychotherapy, lifestyle counseling
+      Genetic: Including gene transfer, stem cell and recombinant DNA
+      Dietary Supplement: For example, vitamins, minerals
+      Combination Product: Combining a drug and device, a biological product and device; a drug and biological product; or a drug, biological product, and device
+      Diagnostic Test: For example, imaging, in-vitro
+      Other
     """
     type: String!
 
     """
-    This is relation field that links to another node. Mention cardinality 
-    (eg one to many), mention what it looks like in the real data: e.g.
-    if its "1 to many", how many is usual? 2? 2000?
+    A ClinicalTrial has a purpose of invetigating an (e.g. medication, surgery) 
+    A "1:1" relationship. An intervention is investigated in one CliniclTrial.
     """
     trials: [ClinicalTrial] @relation(name: "INVESTIGATES_INTERVENTION", direction: IN)
   }
@@ -355,9 +354,8 @@ export const typeDefs = gql`
     type: String! @id
 
     """
-    This is relation field that links to another node. Mention cardinality 
-    (eg one to many), mention what it looks like in the real data: e.g.
-    if its "1 to many", how many is usual? 2? 2000?
+    A StudyType: Investigational, Observational or Expanded Access can contain one or more ClinicalTrials.
+    A "1 to many" relationship in the magitude of 1-3000, e.g. one StudyType can contain one or more ClinicalTrials.
     """
     trials: [ClinicalTrial] @relation(name: "IS_TYPE", direction: IN)
   }
@@ -372,9 +370,8 @@ export const typeDefs = gql`
     name: String! @id
 
     """
-    This is relation field that links to another node. Mention cardinality 
-    (eg one to many), mention what it looks like in the real data: e.g.
-    if its "1 to many", how many is usual? 2? 2000?
+    A sponsor can sponsor one or more ClinicalTrials.
+    A "1 to many" relationship in the magitude of 1-90, e.g. one Sponsor can sponsor/conduct one or more ClinicalTrials.
     """
     trials: [ClinicalTrial] @relation(name: "IS_SPONSORED_BY", direction: IN)
   }
@@ -390,46 +387,41 @@ export const typeDefs = gql`
     name: String! @id
 
     """
-    This is relation field that links to another node. Mention cardinality 
-    (eg one to many), mention what it looks like in the real data: e.g.
-    if its "1 to many", how many is usual? 2? 2000?
+    A Collaborator can support one or more ClinicalTrials.
+    A "1 to many" relationship in the magitude of 1-30, e.g. one Collaborator can support one or more ClinicalTrials.
     """
     trials: [ClinicalTrial] @relation(name: "IS_SUPPORTED_BY", direction: IN)
   }
 
   type Response {
-"Single line description"
+"A respons to a Yes/No"
     """
-    What is this property? Maybe an example of it.
-    e.g.: ABC123
+    A Yes/No indicator.
     """
     YN: String! @id
 
     """
-    This is relation field that links to another node. Mention cardinality 
-    (eg one to many), mention what it looks like in the real data: e.g.
-    if its "1 to many", how many is usual? 2? 2000?
+    The response (e.g. Yes) can be the answer to Is FDA Regulated device for one or more Clinical Trials.
+    A "1 to many" relationship in the magitude of 1-5000, e.g. for 5000 of the ClinicalTrial the answer to : Is FDA regulated Device? Response: No.
+
     """
     isFdaRegulatedDevice: [ClinicalTrial] @relation(name: "IS_FDA_REGULATED_DEVICE", direction: IN)
 
     """
-    This is relation field that links to another node. Mention cardinality 
-    (eg one to many), mention what it looks like in the real data: e.g.
-    if its "1 to many", how many is usual? 2? 2000?
+    The response (e.g. Yes) can be the answer to Is Unapproved device for one or more Clinical Trials.
+    A "1 to many" relationship in the magitude of 1-5000, e.g. for 5000 of the ClinicalTrial the answer to : Is Is Unapproved device? Response: No.
     """
     isUnapprovedDevice: [ClinicalTrial] @relation(name: "IS_UNAPPROVED_DEVICE", direction: IN)
 
     """
-    This is relation field that links to another node. Mention cardinality 
-    (eg one to many), mention what it looks like in the real data: e.g.
-    if its "1 to many", how many is usual? 2? 2000?
+    The response (e.g. Yes) can be the answer to Is FDA Regulated drug for one or more Clinical Trials.
+    A "1 to many" relationship in the magitude of 1-5000, e.g. for 5000 of the ClinicalTrial the answer to : Is FDA regulated Drug? Response: No.
     """
     isFdaRegulatedDrug: [ClinicalTrial] @relation(name: "IS_FDA_REGULATED_DRUG", direction: IN)
 
     """
-    This is relation field that links to another node. Mention cardinality 
-    (eg one to many), mention what it looks like in the real data: e.g.
-    if its "1 to many", how many is usual? 2? 2000?
+    The response (e.g. Yes) can be the answer to Has Expanded Access for one or more Clinical Trials.
+    A "1 to many" relationship in the magitude of 1-5000, e.g. for 5000 of the ClinicalTrial the answer to : Has Expanded? Response: No.
     """
     expandedAccess: [ClinicalTrial] @relation(name: "HAS_EXPANDED_ACCESS", direction: IN)
   }
@@ -449,14 +441,13 @@ export const typeDefs = gql`
     Words or phrases that best describe the protocol. 
     Keywords help users find studies in the database. Use NLM's Medical Subject Heading (MeSH)-controlled vocabulary terms where appropriate. Be as specific and precise as possible. 
     Avoid acronyms and abbreviations.
-    A "1 to many" relationship in the magitude of 1-, e.g. one ClinicalTrial can have one or more keywords.
+    A "1 to many" relationship in the magitude of 1-1000, e.g. one keyword can refer to one or more Cliical Trials.
     """
     keywords: [Keyword] @relation(name: "HAS_KEYWORD", direction: OUT)
 
     """
-    This is relation field that links to another node. Mention cardinality 
-    (eg one to many), mention what it looks like in the real data: e.g.
-    if its "1 to many", how many is usual? 2? 2000?
+    A condition is being investigated in one or more Clinical Trials.
+    A "1 to many" relationship in the magitude of 1-1200, e.g. a condition is being studies in one or more ClinicalTials.
     """
     trials: [ClinicalTrial] @relation(name: "IS_STUDYING", direction: IN)
   }
@@ -477,9 +468,8 @@ export const typeDefs = gql`
     phase: String! @id
 
     """
-    This is relation field that links to another node. Mention cardinality 
-    (eg one to many), mention what it looks like in the real data: e.g.
-    if its "1 to many", how many is usual? 2? 2000?
+    A Phase can contain one or more ClinicalTrials.
+    A "1 to many" relationship in the magitude of 1-1100, e.g. the type phase can contain multiple ClinicalTrials
     """
     trials: [ClinicalTrial] @relation(name: "IS_PHASE", direction: IN)
   }
@@ -760,10 +750,14 @@ Can be one of the below:
   }
 
   type ObservationPeriod {
-"Single line description"
+"Time Perspective"
     """
-    What is this property? Maybe an example of it.
-    e.g.: ABC123
+    Temporal relationship of observation period to time of participant enrollment. 
+    One can be selected of the below:
+    Retrospective: Look back using observations collected predominantly prior to subject selection and enrollment
+    Prospective: Look forward using periodic observations collected predominantly following subject enrollment
+    Cross-sectional: Observations or measurements made at a single point in time, usually at subject enrollment
+    Other: Explain in Detailed Description
     """
     time: String! @id
 
@@ -936,16 +930,17 @@ Can be one of the below:
   }
 
   type Contact {
-"Single line description"
+"Central Contact Person (or Facility Contact required)"
     """
-    What is this property? Maybe an example of it.
-    e.g.: ABC123
+    The name or title, toll-free telephone number and email address of a person to whom questions concerning enrollment at any location of the study can be addressed.
+
+
+    Email: electronic mail address of the central contact person
     """
     email: String! @id
 
     """
-    What is this property? Maybe an example of it.
-    e.g.: ABC123
+    Last Name or Official Title of the central contact person.
     """
     name: String!
 
@@ -958,16 +953,21 @@ Can be one of the below:
   }
 
   type BioSpecimen {
-"Single line description"
+"Information about samples retained in a biorepository from study participants "
     """
-    What is this property? Maybe an example of it.
-    e.g.: ABC123
+    Indicate whether samples of material from research participants are retained in a biorepository. 
+    One of the below can be selected:
+    None Retained: No samples retained
+    Samples With DNA: Samples retained, with potential for extraction of DNA from at least one of the types of samples retained (e.g., frozen tissue, whole blood)
+    Samples Without DNA: Samples retained, with no potential for DNA extraction from any retained samples (e.g., fixed tissue, plasma)
+
     """
     retension: String! @id
 
     """
-    What is this property? Maybe an example of it.
-    e.g.: ABC123
+    Biospecimen Description
+    All types of biospecimens to be retained (e.g., whole blood, serum, white cells, urine, tissue).
+    Limit: 1000 characters.
     """
     description: String!
 
@@ -976,7 +976,7 @@ Can be one of the below:
     (eg one to many), mention what it looks like in the real data: e.g.
     if its "1 to many", how many is usual? 2? 2000?
     """
-    trials: [ClinicalTrial] @relation(name: "HAS_SMAPLES_RETAINED_IN_BIOREPOSITORY", direction: IN)
+    trials: [ClinicalTrial] @relation(name: "HAS_SAMPLES_RETAINED_IN_BIOREPOSITORY", direction: IN)
   }
 
   type Arm {
