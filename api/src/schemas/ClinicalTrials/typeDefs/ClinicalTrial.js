@@ -38,121 +38,120 @@ export const typeDefs = gql`
     refersToUrl: [Link] @relation(name: "REFERS_TO_URL", direction: OUT)
     
     """
-    This is relation field that links to another node. Mention cardinality 
-    (eg one to many), mention what it looks like in the real data: e.g.
-    if its "1 to many", how many is usual? 2? 2000?
+    The relationship between a ClinicalTrial and a type of Reference. A ClinicalTrial ca use a Reference as either background, result or derived.
+    A "1 to 1" relationship
     """
     useReferenceAs: [ReferenceType] @relation(name: "USE_REFERENCE_AS", direction: OUT)
 
     """
-    This is relation field that links to another node. Mention cardinality 
-    (eg one to many), mention what it looks like in the real data: e.g.
-    if its "1 to many", how many is usual? 2? 2000?
+    A ClinicaTrial is conducted a Facility. This can e.g. be a hospital or clinic.
+    A "1 to many" relationship in the magitude of 1-900, e.g. one ClinicalTrial can be conducted at one or more facilities.
     """   
     conductedAt: [Facility] @relation(name: "CONDUCTED_AT", direction: OUT)
 
     """
-    This is relation field that links to another node. Mention cardinality 
-    (eg one to many), mention what it looks like in the real data: e.g.
-    if its "1 to many", how many is usual? 2? 2000?
+    A ClinicalTrial has a purpose of invetigating an intervention (e.g. medication, surgery) 
+    A "1 to many" relationship in the magitude of 1-30, e.g. one ClinicalTrial can investigate one or more Interventions.
     """  
     investigates: [Intervention] @relation(name: "INVESTIGATES_INTERVENTION", direction: OUT)
 
     """
-    This is relation field that links to another node. Mention cardinality 
-    (eg one to many), mention what it looks like in the real data: e.g.
-    if its "1 to many", how many is usual? 2? 2000?
+    A CliinicaTrial can be of a certain type: Investigational, Observational or Expanded Access. 
+    A 1:1 relationship.
     """
     type: [StudyType] @relation(name: "IS_TYPE", direction: OUT)
 
     """
-    This is relation field that links to another node. Mention cardinality 
-    (eg one to many), mention what it looks like in the real data: e.g.
-    if its "1 to many", how many is usual? 2? 2000?
+    A ClinicalTrial is sponsored (i.e. paid) be someone.
+    A 1:1 relationship.
     """
     isSponsoredBy: [Sponsor] @relation(name: "IS_SPONSORED_BY", direction: OUT)
 
     """
-    This is relation field that links to another node. Mention cardinality 
-    (eg one to many), mention what it looks like in the real data: e.g.
-    if its "1 to many", how many is usual? 2? 2000?
+    A ClinicalTrial can be supported by a collaborator. 
+    A 1:many relationship, in the magitude of 1-100, e.g. one ClinicalTrial can supported by one or ore collaborators.
     """
     isSupportedBy: [Collaborator] @relation(name: "IS_SUPPORTED_BY", direction: OUT)
 
     """
-    This is relation field that links to another node. Mention cardinality 
-    (eg one to many), mention what it looks like in the real data: e.g.
-    if its "1 to many", how many is usual? 2? 2000?
+    This relationship indicates if the ClinicalTrial studies a U.S. FDA-regulated Device Product *§ (Optional for Observational Studies)
+    Indication that a clinical study is studying a device product subject to section 510(k), 515, or 520(m) of the Federal Food, Drug, and Cosmetic Act. Select Yes/No.
+    This is a 1:1 relationship.
     """
     isFdaRegulatedDevice: [Response] @relation(name: "IS_FDA_REGULATED_DEVICE", direction: OUT)
 
     """
-    This is relation field that links to another node. Mention cardinality 
-    (eg one to many), mention what it looks like in the real data: e.g.
-    if its "1 to many", how many is usual? 2? 2000?
+    This relationship indicates if the ClinicalTrial investigates a device product Not Approved or Cleared by U.S. FDA *§ (formerly "Delayed Posting")
+    Indication that at least one device product studied in the clinical study has not been previously approved or cleared by the U.S. Food and Drug Administration (FDA) for one or more uses. Select one.
+      Yes: At least one studied FDA-regulated device product has not been previously approved or cleared by FDA
+      No: All studied FDA-regulated device products have been previously approved or cleared by FDA.
+
+    This is a 1:1 relationship.
     """  
     isUnapprovedDevice: [Response] @relation(name: "IS_UNAPPROVED_DEVICE", direction: OUT)
 
     """
-    This is relation field that links to another node. Mention cardinality 
-    (eg one to many), mention what it looks like in the real data: e.g.
-    if its "1 to many", how many is usual? 2? 2000?
+    This relationship indicates if the ClinicalTrial studies a U.S. FDA-regulated Drug Product *§ (Optional for Observational Studies)
+    Indication that a clinical study is studying a drug product (including a biological product) subject to section 505 of the Federal Food, Drug, and Cosmetic Act or to section 351 of the Public Health Service Act. Select Yes/No.
+    This is a 1:1 relationship.    
     """
     isFdaRegulatedDrug: [Response] @relation(name: "IS_FDA_REGULATED_DRUG", direction: OUT)
 
     """
-    This is relation field that links to another node. Mention cardinality 
-    (eg one to many), mention what it looks like in the real data: e.g.
-    if its "1 to many", how many is usual? 2? 2000?
+    Availability of Expanded Access.
+    Whether there is expanded access to the investigational product for patients who do not qualify for enrollment in a clinical trial. 
+    Expanded Access for investigational drug products (including biological products) includes all expanded access types under section 561 of the Federal Food, Drug, and Cosmetic Act: 
+      (1) for individual participants, including emergency use; 
+      (2) for intermediate-size participant populations; and 
+      (3) under a treatment IND or treatment protocol. 
+
+    Relationship can be one of the below:
+      Yes: Investigational product is available through expanded access
+      No: Investigational product is not available through expanded access
+      Unknown: If the responsible party is not the sponsor of the clinical trial and manufacturer of the investigational product.
+    
+    This is a 1:1 relationship.
     """
     expandedAccess: [Response] @relation(name: "HAS_EXPANDED_ACCESS", direction: OUT)
 
     """
-    This is relation field that links to another node. Mention cardinality 
-    (eg one to many), mention what it looks like in the real data: e.g.
-    if its "1 to many", how many is usual? 2? 2000?
+    A Clinical is studying / invetigting a Condition
+    A "1 to many" relationship in the magitude of 1-40, e.g. one ClinicalTrial can be studying one or more conditions.
     """
     isStudying: [Condition] @relation(name: "IS_STUDYING", direction: OUT)
 
     """
-    This is relation field that links to another node. Mention cardinality 
-    (eg one to many), mention what it looks like in the real data: e.g.
-    if its "1 to many", how many is usual? 2? 2000?
+    A ClinicalTrial of StudyType: Invetigational can be categorised as one or more phases (typically only one).
+    A "1 to many" relationship in the magitude of 1-2, e.g a ClinicalTrial be Phase 1 and Phase 2 (two relationships).
     """
     isPhase: [Phase] @relation(name: "IS_PHASE", direction: OUT)
 
     """
-    This is relation field that links to another node. Mention cardinality 
-    (eg one to many), mention what it looks like in the real data: e.g.
-    if its "1 to many", how many is usual? 2? 2000?
+    A Clinical Trial has a primary purpose for the investigation.
+    This is a 1:1 relationship.
     """
     purpose: [Purpose] @relation(name: "HAS_PURPOSE", direction: OUT)
 
     """
-    This is relation field that links to another node. Mention cardinality 
-    (eg one to many), mention what it looks like in the real data: e.g.
-    if its "1 to many", how many is usual? 2? 2000?
+    A ClinicalTrial can have an additional identification assigend by the sponsor.
+    This is a 1:1 relationship.
     """
     identifications: [StudyIdentification] @relation(name: "HAS_IDENTIFICATION", direction: OUT)
 
     """
-    This is relation field that links to another node. Mention cardinality 
-    (eg one to many), mention what it looks like in the real data: e.g.
-    if its "1 to many", how many is usual? 2? 2000?
+    A ClinicalTrial can have different recruitment status depending on progress of the study.
+    This is a 1:1 relationship.
     """
     status: [Status] @relation(name: "HAS_STATUS", direction: OUT)
  
     """
-    This is relation field that links to another node. Mention cardinality 
-    (eg one to many), mention what it looks like in the real data: e.g.
-    if its "1 to many", how many is usual? 2? 2000?
+    A ClinicalTrial can be prematurely stopped.
+    If the ClinicalTrial was stopped this is a 1:1 relationship.
     """
     stopped: [StopReason] @relation(name: "WAS_STOPPED", direction: OUT)
  
     """
-    This is relation field that links to another node. Mention cardinality 
-    (eg one to many), mention what it looks like in the real data: e.g.
-    if its "1 to many", how many is usual? 2? 2000?
+    A ClinicalTrial has a start date.
     """
     started: [Start] @relation(name: "STARTED_AT", direction: OUT)
 
@@ -347,10 +346,11 @@ export const typeDefs = gql`
   }
 
   type StudyType {
-"Single line description"
+"The Type of the ClinicalTrial"
     """
-    What is this property? Maybe an example of it.
-    e.g.: ABC123
+    Interventional (clinical trial): Participants are assigned prospectively to an intervention or interventions according to a protocol to evaluate the effect of the intervention(s) on biomedical or other health related outcomes.
+    Observational: Studies in human beings in which biomedical and/or health outcomes are assessed in pre-defined groups of individuals. Participants in the study may receive diagnostic, therapeutic, or other interventions, but the investigator does not assign specific interventions to the study participants. This includes when participants receive interventions as part of routine medical care, and a researcher studies the effect of the intervention.   
+    Expanded Access: An investigational drug product (including biological product) available through expanded access for patients who do not qualify for enrollment in a clinical trial. Expanded Access includes all expanded access types under section 561 of the Federal Food, Drug, and Cosmetic Act: (1) for individual patients, including emergency use; (2) for intermediate-size patient populations; and (3) under a treatment IND or treatment protocol. (For more information on data requirements for this Study Type, see Expanded Access Data Element Definitions).
     """
     type: String! @id
 
@@ -363,10 +363,11 @@ export const typeDefs = gql`
   }
 
   type Sponsor {
-"Single line description"
+"The name of the entity or the individual who is the sponsor of the clinical study."
     """
-    What is this property? Maybe an example of it.
-    e.g.: ABC123
+    Limit: 160 characters.
+    When a clinical study is conducted under an investigational new drug application (IND) or investigational device exemption (IDE), the IND or IDE holder is considered the sponsor. 
+    When a clinical study is not conducted under an IND or IDE, the single person or entity who initiates the study, by preparing and/or planning the study, and who has authority and control over the study, is considered the sponsor.
     """
     name: String! @id
 
@@ -379,10 +380,12 @@ export const typeDefs = gql`
   }
 
   type Collaborator {
-"Single line description"
+"Other organizations (if any) providing support"
     """
-    What is this property? Maybe an example of it.
-    e.g.: ABC123
+    
+    Support may include funding, design, implementation, data analysis or reporting. 
+    The responsible party is responsible for confirming all collaborators before listing them.
+    Limit: 160 characters.
     """
     name: String! @id
 
@@ -432,18 +435,21 @@ export const typeDefs = gql`
   }
 
   type Condition {
-"Single line description"
+"Primary Disease or Condition Being Studied in the Trial, or the Focus of the Study"
     """
-    What is this property? Maybe an example of it.
-    e.g.: ABC123
+    The name(s) of the disease(s) or condition(s) studied in the clinical study, or the focus of the clinical study. 
+    Use, if available, appropriate descriptors from NLM's Medical Subject Headings (MeSH)-controlled vocabulary thesaurus or terms from another vocabulary, 
+    such as the Systematized Nomenclature of Medicine—Clinical Terms (SNOMED CT), that has been mapped to MeSH within the Unified Medical Language System (UMLS) Metathesaurus.
     """
     disease: String! @id
     # BioBERT
 
     """
-    This is relation field that links to another node. Mention cardinality 
-    (eg one to many), mention what it looks like in the real data: e.g.
-    if its "1 to many", how many is usual? 2? 2000?
+    Keywords
+    Words or phrases that best describe the protocol. 
+    Keywords help users find studies in the database. Use NLM's Medical Subject Heading (MeSH)-controlled vocabulary terms where appropriate. Be as specific and precise as possible. 
+    Avoid acronyms and abbreviations.
+    A "1 to many" relationship in the magitude of 1-, e.g. one ClinicalTrial can have one or more keywords.
     """
     keywords: [Keyword] @relation(name: "HAS_KEYWORD", direction: OUT)
 
@@ -456,10 +462,17 @@ export const typeDefs = gql`
   }
 
   type Phase {
-"Single line description"
+"The phase of the CLinical Trial - only applicable for ClinicalTrial of StuyType:Internventional"
     """
-    What is this property? Maybe an example of it.
-    e.g.: ABC123
+      For a clinical trial of a drug product (including a biological product), the numerical phase of such clinical trial, consistent with terminology in 21 CFR 312.21 and in 21 CFR 312.85 for phase 4 studies. Select only one.
+
+      N/A: Trials without phases (for example, studies of devices or behavioral interventions).
+      Early Phase 1 (Formerly listed as "Phase 0"): Exploratory trials, involving very limited human exposure, with no therapeutic or diagnostic intent (e.g., screening studies, microdose studies). See FDA guidance on exploratory IND studies for more information.
+      Phase 1: Includes initial studies to determine the metabolism and pharmacologic actions of drugs in humans, the side effects associated with increasing doses, and to gain early evidence of effectiveness; may include healthy participants and/or patients.
+      Phase 2: Includes controlled clinical studies conducted to evaluate the effectiveness of the drug for a particular indication or indications in participants with the disease or condition under study and to determine the common short-term side effects and risks.
+      Phase 3: Includes trials conducted after preliminary evidence suggesting effectiveness of the drug has been obtained, and are intended to gather additional information to evaluate the overall benefit-risk relationship of the drug.
+      Phase 4: Studies of FDA-approved drugs to delineate additional information including the drug's risks, benefits, and optimal use.
+
     """
     phase: String! @id
 
@@ -472,10 +485,19 @@ export const typeDefs = gql`
   }
 
   type Purpose {
-"Single line description"
+"Primary Purpose of the ClinicalTrial"
     """
-    What is this property? Maybe an example of it.
-    e.g.: ABC123
+  The main objective of the intervention(s) being evaluated by the clinical trial. 
+  Can be one of the below:
+    Treatment: One or more interventions are being evaluated for treating a disease, syndrome, or condition.
+    Prevention: One or more interventions are being assessed for preventing the development of a specific disease or health condition.
+    Diagnostic: One or more interventions are being evaluated for identifying a disease or health condition.
+    Supportive Care: One or more interventions are evaluated for maximizing comfort, minimizing side effects, or mitigating against a decline in the participant's health or function.
+    Screening: One or more interventions are assessed or examined for identifying a condition, or risk factors for a condition, in people who are not yet known to have the condition or risk factor.
+    Health Services Research: One or more interventions for evaluating the delivery, processes, management, organization, or financing of healthcare.
+    Basic Science: One or more interventions for examining the basic mechanism of action (for example, physiology or biomechanics of an intervention).
+    Device Feasibility: An intervention of a device product is being evaluated in a small clinical trial (generally fewer than 10 participants) to determine the feasibility of the product; or a clinical trial to test a prototype device for feasibility and not health outcomes. Such studies are conducted to confirm the design and operating specifications of a device before beginning a full clinical trial.
+    Other: None of the other options applies.
     """
     name: String! @id
 
@@ -488,10 +510,10 @@ export const typeDefs = gql`
   }
 
   type StudyIdentification {
-"Single line description"
+"Unique Protocol Identification Number"
     """
-    What is this property? Maybe an example of it.
-    e.g.: ABC123
+    Any unique identifier assigned to the protocol by the sponsor.
+    Limit: 30 characters.
     """
     studyId: String! @id
 
@@ -539,10 +561,20 @@ export const typeDefs = gql`
   }
 
   type Status {
-"Single line description"
+"Overall Recruitment Status"
     """
-    What is this property? Maybe an example of it.
-    e.g.: ABC123
+The recruitment status for the clinical study as a whole, based upon the status of the individual sites. 
+If at least one facility in a multi-site clinical study has an Individual Site Status of "Recruiting," 
+then the Overall Recruitment Status for the study must be "Recruiting." 
+Can be one of the below:
+    Not yet recruiting: Participants are not yet being recruited
+    Recruiting: Participants are currently being recruited, whether or not any participants have yet been enrolled
+    Enrolling by invitation: Participants are being (or will be) selected from a predetermined population
+    Active, not recruiting: Study is continuing, meaning participants are receiving an intervention or being examined, but new participants are not currently being recruited or enrolled
+    Completed: The study has concluded normally; participants are no longer receiving an intervention or being examined (that is, last participant’s last visit has occurred)
+    Suspended: Study halted prematurely but potentially will resume
+    Terminated: Study halted prematurely and will not resume; participants are no longer being examined or receiving intervention
+    Withdrawn: Study halted prematurely, prior to enrollment of first participant
     """
     status: String! @id
 
@@ -562,10 +594,10 @@ export const typeDefs = gql`
   }
 
   type StopReason {
-"Single line description"
+"Why Study Stopped"
     """
-    What is this property? Maybe an example of it.
-    e.g.: ABC123
+    A brief explanation of the reason(s) why such clinical study was stopped (for a clinical study that is "Suspended," "Terminated," or "Withdrawn" prior to its planned completion as anticipated by the protocol).
+    Limit: 250 characters.
     """
     reason: String! @id
 
@@ -585,10 +617,10 @@ export const typeDefs = gql`
   }
 
   type Start {
-"Single line description"
+"Study Start Date"
     """
-    What is this property? Maybe an example of it.
-    e.g.: ABC123
+    The estimated date on which the clinical study will be open for recruitment of participants, or the actual date on which the first participant was enrolled.
+    Note: "Enrolled" means a participant's, or their legally authorized representative’s, agreement to participate in a clinical study following completion of the informed consent process. Potential participants who are screened for the purpose of determining eligibility for the study, but do not participate in the study, are not considered enrolled, unless otherwise specified by the protocol.
     """
     date: String! @id # property is not currently a Cypher Date type
 
@@ -601,10 +633,15 @@ export const typeDefs = gql`
   }
 
   type Completed {
-"Single line description"
+"Date(s) for when the ClinicalTrial Completed"
     """
-    What is this property? Maybe an example of it.
-    e.g.: ABC123
+    Primary Completion Date (primaryCompletionDate):
+    The date that the final participant was examined or received an intervention for the purposes of final collection of data for the primary outcome, whether the clinical study concluded according to the pre-specified protocol or was terminated. 
+    In the case of clinical studies with more than one primary outcome measure with different completion dates, this term refers to the date on which data collection is completed for all of the primary outcomes.
+   Once the clinical study has reached the primary completion date, the responsible party must update the Primary Completion Date to reflect the actual primary completion date.
+
+    Study Completion Date (completionDate):
+    The date the final participant was examined or received an intervention for purposes of final collection of data for the primary and secondary outcome measures and adverse events (for example, last participant’s last visit), whether the clinical study concluded according to the pre-specified protocol or was terminated.
     """
     completionDate: String! @id # property is not currently a Cypher Date type
     primaryCompletionDate: String! # property is not currently a Cypher Date type
@@ -647,10 +684,12 @@ export const typeDefs = gql`
   }
 
   type Responsible {
-"Single line description"
+"An indication of whether the responsible party is the sponsor, the sponsor-investigator, or a principal investigator designated by the sponsor to be the responsible party. "
     """
-    What is this property? Maybe an example of it.
-    e.g.: ABC123
+    One can be selected of the below:
+      Sponsor: The entity (for example, corporation or agency) that initiates the study
+      Principal Investigator: The individual designated as responsible party by the sponsor (see Note)
+      Sponsor-Investigator: The individual who both initiates and conducts the study
     """
     type: String! @id
 
