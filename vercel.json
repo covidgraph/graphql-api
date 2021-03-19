@@ -4,60 +4,12 @@
     {
       "src": "api/src/vercel-index.js",
       "use": "@vercel/node"
-    },
-    {
-      "src": "web-react/package.json",
-      "use": "@vercel/static-build",
-      "config": {
-        "distDir": "build"
-      }
     }
   ],
-  "routes": [
+  "rewrites": [
     {
-      "src": "/(.*)",
-      "dest": "api/src/vercel-index.js"
-    },
-    {
-      "src": "/static/(.*)",
-      "headers": {
-        "cache-control": "s-maxage=31536000,immutable"
-      },
-      "dest": "web-react/static/$1"
-    },
-    {
-      "src": "/favicon.ico",
-      "dest": "web-react/favicon.ico"
-    },
-    {
-      "src": "/img/(.*)",
-      "dest": "web-react/img/$1"
-    },
-    {
-      "src": "/asset-manifest.json",
-      "dest": "web-react/asset-manifest.json"
-    },
-    {
-      "src": "/manifest.json",
-      "dest": "web-react/manifest.json"
-    },
-    {
-      "src": "/precache-manifest.(.*)",
-      "dest": "web-react/precache-manifest.$1"
-    },
-    {
-      "src": "/service-worker.js",
-      "headers": {
-        "cache-control": "s-maxage=0"
-      },
-      "dest": "web-react/service-worker.js"
-    },
-    {
-      "src": "^(.*)$",
-      "headers": {
-        "cache-control": "s-maxage=0"
-      },
-      "dest": "/web-react/index.html"
+      "source": "/(.*)",
+      "destination": "api/src/vercel-index.js"
     }
   ],
   "build": {
